@@ -1,18 +1,41 @@
-import { React,useState } from 'react';
+import React from "react";
+import Todos from "./Todos";
+import Header from "./layout/Header";
+import AddTodo from "./AddTodo";
+// import uuid from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
-
-
-
-function TodoApp(){
-    const [todos, setTodo] = useState();
-    todos=[ {    id: 1,    title: "Setup development environment",    completed: true    },    {    id: 2,    title: "Develop website and add content",    completed: false    },    {    id: 3,    title: "Deploy to live server",    completed: false    }  ]
-    return(
-<div>
-    <h1>Hello from Create React App</h1>
-    <p>I am in a React</p>
-</div>
+class TodoApp extends React.Component {
+    state = {
+        todos: [
+          {
+            // id: uuid.v4(),
+            id: 1,
+            title: "Setup development environment",
+            completed: true,
+          },
+          {
+            // id: uuid.v4(),
+            id: 2,
+            title: "Develop website and add content",
+            completed: false,
+          },
+          {
+            // id: uuid.v4(),
+            id: 3,
+            title: "Deploy to live server",
+            completed: false,
+          },
+        ],
+      };
+  render() {
+    return (
+      <div>
+          <Todos todos={this.state.todos} />    
+      </div>
     );
+  }
 }
 
-
 export default TodoApp;
+
