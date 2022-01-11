@@ -29,13 +29,27 @@ class TodoApp extends React.Component {
 		],
 	};
 	handleChange = (id) => {
-		console.log('clicked', id);
+		this.setState({
+			todos: this.state.todos.map((todo) => {
+				if (todo.id === id) {
+					todo.completed = !todo.completed;
+				}
+				return todo;
+			}),
+		});
+	};
+	deleteTodo = (id) => {
+		this.setState({
+			todos: this.state.todos.filter((todo) => {
+				 return todo.id !== id;  
+			}),
+		});
 	};
 	render() {
 		return (
 			<div className="container">
 				<Header />
-				<Todos todos={this.state.todos} handleChange={this.handleChange} />
+                <Todos todos={this.state.todos} handleChange={this.handleChange} deleteTodo={this.deleteTodo}/>
 			</div>
 		);
 	}
