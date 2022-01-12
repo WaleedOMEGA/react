@@ -2,7 +2,7 @@ import React from "react";
 import Todos from "./Todos";
 import Header from "./layout/Header";
 import AddTodo from "./AddTodo";
-// import uuid from "uuid";
+import uuid from "uuid";
 import { v4 as uuidv4 } from "uuid";
 
 class TodoApp extends React.Component {
@@ -10,19 +10,19 @@ class TodoApp extends React.Component {
 		todos: [
 			{
 				// id: uuid.v4(),
-				id: 1,
+				id: uuid.v4(),
 				title: 'Setup development environment',
 				completed: true,
 			},
 			{
 				// id: uuid.v4(),
-				id: 2,
+				id: uuid.v4(),
 				title: 'Develop website and add content',
 				completed: false,
 			},
 			{
 				// id: uuid.v4(),
-				id: 3,
+				id: uuid.v4(),
 				title: 'Deploy to live server',
 				completed: false,
 			},
@@ -46,7 +46,7 @@ class TodoApp extends React.Component {
 		});
 	};
 	addTodo = (title) => {
-		const newTodo = { id: 4, title: title, completed: false };
+		const newTodo = { id: uuid.v4(), title: title, completed: false };
 		this.setState({ todos: [...this.state.todos, newTodo] });
 	};
 	render() {
