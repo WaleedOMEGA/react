@@ -3,11 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-const element = <h1>React Meme Application</h1>;  
-ReactDOM.render(
-  element,
-  document.getElementById('root')
-);
+import MemeApp from './components/MemeApp';  
+  
+ReactDOM.render(<MemeApp />, document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

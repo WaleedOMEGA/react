@@ -1,9 +1,11 @@
+import Header from './Header';
+import MemeGenerator from './MemeGenerator ';
 const MemeApp = () => {
 	return (
 		<div>
-			{' '}
-			<h1>Hello from parent app</h1>{' '}
+            <Header />
+            <MemeGenerator />
 		</div>
 	);
 };
-export default MemeApp;  
+export default MemeApp;
