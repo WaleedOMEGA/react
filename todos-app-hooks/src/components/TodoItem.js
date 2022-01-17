@@ -1,36 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-export class TodoItem extends React.Component {
-	componentWillUnmount() {
-		  alert('Item about to be deleted!');  
-	  }
-    render() {
-        const completedStyle = {
-					fontStyle: 'italic',
-					color: '#c5e2d2',
-					textDecoration: 'line-through',
-        };
-        
-        const { completed, id, title } = this.props.todo;
-        return (
-					<div>
-						<li className="todo-item">
-							<input
-								type="checkbox"
-								checked={completed}
-								onChange={() => this.props.handleChange(id)}
-							/>
-							<button
-								className="btn-style"
-								onClick={() => this.props.deleteTodo(id)}
-							>
-								X
-							</button>
-							<span style={completed ? completedStyle : null}>{title}</span>
-						</li>
-					</div>
-				);
-    }
+const TodoItem = (props) => {  
+		const completedStyle = {
+			fontStyle: 'italic',
+			color: '#c5e2d2',
+			textDecoration: 'line-through',
+		};
+
+	const { completed, id, title } = props.todo;
+	useEffect(() => {
+		return () => {
+			alert('Item about to be deleted!');
+		};
+	}, []);  
+		return (
+			<div>
+				<li className="todo-item">
+					<input
+						type="checkbox"
+						checked={completed}
+						onChange={() => props.handleChange(id)}
+					/>
+					<button
+						className="btn-style"
+						onClick={() => props.deleteTodo(id)}
+					>
+						X
+					</button>
+					<span style={completed ? completedStyle : null}>{title}</span>
+				</li>
+			</div>
+		);
+	
 }
 
-export default TodoItem
+export default TodoItem;
