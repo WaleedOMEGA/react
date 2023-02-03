@@ -1,4 +1,4 @@
-import React, { useState,useEffect,useReducer,useContext } from 'react';
+import React, { useState,useReducer,useContext,useRef } from 'react';
 
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
@@ -24,7 +24,8 @@ const Login = (props) => {
   //    clearTimeout(identifier);
   //  }
   //  }, [enteredEmail,enteredPassword]);
-
+const emailInputRef=useRef();
+const passwordInputRef=useRef();
   const emailReducer = (state, action) => {
     if (action.type === 'USER_INPUT') {
       return { value: action.val, isValid: action.val.includes('@') };
@@ -82,9 +83,9 @@ setFormIsValid(
     if (formIsValid) {
       authCtx.onLogin(emailState.value, passwordState.value);
     } else if(!emailState.isValid) {
-      
+      emailInputRef.current.focus();
     } else {
-      
+      passwordInputRef.current.focus();
     }
     
   };
@@ -93,6 +94,7 @@ setFormIsValid(
 		<Card className={classes.login}>
 			<form onSubmit={submitHandler}>
 				<Input
+        ref={emailInputRef}
 					id="email"
 					label="E-Mail"
 					type="email"
@@ -102,6 +104,7 @@ setFormIsValid(
 					onBlur={validateEmailHandler}
 				/>
 				<Input
+        ref={passwordInputRef}
 					id="password"
 					label="Password"
 					type="password"
