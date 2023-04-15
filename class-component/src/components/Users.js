@@ -14,6 +14,11 @@ this.state={
 }
   }
 
+  componentDidUpdate(){
+    if(this.props.users.length === 0){
+      throw new Error ('No Users Provided');
+    }
+  }
   toggleUsersHandler(){
 this.setState((curState) => {
   return {showUsers:!curState.showUsers};
