@@ -1,25 +1,35 @@
 import { useState } from 'react';
 const SimpleInput = (props) => {
 	const [enteredName, setEnteredName] = useState('');
-
 	const [enteredNameTouched, setEnteredNameTouched] = useState(false);
 	
-
+	const [enteredEmail, setEnteredEmail] = useState('');
+	const [enteredEmailTouched, setEnteredEmailTouched] = useState(false);
 	const enteredNameIsValid = enteredName.trim() !== '';
+	const enteredEmailIsValid = enteredEmail.includes('@');
 	const nameInputInvalid = !enteredNameIsValid && enteredNameTouched;
+	const emailInputInvalid = !enteredEmailIsValid && enteredEmailTouched;
 
 	let formIsValid=false;
 
 	
-if(enteredNameIsValid){
+if(enteredNameIsValid && enteredEmailIsValid){
 	formIsValid=true;
 }
 	const nameInputChangeHandler = (event) => {
 		setEnteredName(event.target.value);
 	};
 
-	const nameInputBlurHandler = (event) => {
+	const nameInputBlurHandler = () => {
 		setEnteredNameTouched(true);
+	};
+
+	const emailInputChangeHandler = (event) => {
+		setEnteredEmail(event.target.value);
+	};
+
+	const emailInputBlurHandler = () => {
+		setEnteredEmailTouched(true);
 	};
 
 	const formSubmissionHandler = (event) => {
@@ -30,9 +40,15 @@ if(enteredNameIsValid){
 		}
 		setEnteredName('');
 		setEnteredNameTouched(false);
+		setEnteredEmail('');
+		setEnteredEmailTouched(false);
 	};
 
 	const nameInputClasses = nameInputInvalid
+		? 'form-control invalid'
+		: 'form-control';
+
+		const emailInputClasses = emailInputInvalid
 		? 'form-control invalid'
 		: 'form-control';
 	return (
@@ -48,6 +64,20 @@ if(enteredNameIsValid){
 				/>
 				{nameInputInvalid && (
 					<p className="error-text">Name must not be Empty.</p>
+				)}
+			</div>
+			<div className={emailInputClasses}>
+				<label htmlFor="email">Your E-Mail</label>
+				<input
+					type="email"
+					id="email"
+					onChange={emailInputChangeHandler}
+					onBlur={emailInputBlurHandler}
+					
+					value={enteredEmail}
+				/>
+				{emailInputInvalid && (
+					<p className="error-text">Please Enter a valid email.</p>
 				)}
 			</div>
 			<div className="form-actions">
