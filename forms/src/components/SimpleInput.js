@@ -1,13 +1,21 @@
 import { useState } from 'react';
+import useInput from '../hooks/use-input';
 const SimpleInput = (props) => {
-	const [enteredName, setEnteredName] = useState('');
-	const [enteredNameTouched, setEnteredNameTouched] = useState(false);
+
+	const {
+		value:enteredName,
+		hasError:nameInputHasError,
+		isValid:enteredNameIsValid,
+		valueChangeHandler:nameChangeHandler,
+		reset:resetNameInput,
+		inputBlurHandler:nameBlurHandler}=useInput(value=>value.trim !=='');
+	
 	
 	const [enteredEmail, setEnteredEmail] = useState('');
 	const [enteredEmailTouched, setEnteredEmailTouched] = useState(false);
-	const enteredNameIsValid = enteredName.trim() !== '';
+	
 	const enteredEmailIsValid = enteredEmail.includes('@');
-	const nameInputInvalid = !enteredNameIsValid && enteredNameTouched;
+	
 	const emailInputInvalid = !enteredEmailIsValid && enteredEmailTouched;
 
 	let formIsValid=false;
@@ -16,14 +24,7 @@ const SimpleInput = (props) => {
 if(enteredNameIsValid && enteredEmailIsValid){
 	formIsValid=true;
 }
-	const nameInputChangeHandler = (event) => {
-		setEnteredName(event.target.value);
-	};
-
-	const nameInputBlurHandler = () => {
-		setEnteredNameTouched(true);
-	};
-
+	
 	const emailInputChangeHandler = (event) => {
 		setEnteredEmail(event.target.value);
 	};
@@ -34,17 +35,16 @@ if(enteredNameIsValid && enteredEmailIsValid){
 
 	const formSubmissionHandler = (event) => {
 		event.preventDefault();
-		setEnteredNameTouched(true);
+		
 		if (!enteredNameIsValid) {
 			return;
 		}
-		setEnteredName('');
-		setEnteredNameTouched(false);
+		resetNameInput();
 		setEnteredEmail('');
 		setEnteredEmailTouched(false);
 	};
 
-	const nameInputClasses = nameInputInvalid
+	const nameInputClasses = nameInputHasError
 		? 'form-control invalid'
 		: 'form-control';
 
@@ -58,11 +58,11 @@ if(enteredNameIsValid && enteredEmailIsValid){
 				<input
 					type="text"
 					id="name"
-					onChange={nameInputChangeHandler}
-					onBLur={nameInputBlurHandler}
+					onChange={nameChangeHandler}
+					onBLur={nameBlurHandler}
 					value={enteredName}
 				/>
-				{nameInputInvalid && (
+				{nameInputHasError && (
 					<p className="error-text">Name must not be Empty.</p>
 				)}
 			</div>
