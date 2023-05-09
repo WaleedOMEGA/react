@@ -42,6 +42,13 @@ setFormInputValidity({
     }
 
     // submit cart data
+
+    props.onConfirm({
+      name:enteredName,
+      city:enteredCity,
+      street:enteredStreet,
+      postalCode:enteredPostalCode
+    });
   };
 
   return (
