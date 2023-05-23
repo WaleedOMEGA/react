@@ -32,5 +32,8 @@ if(response.status===442 || response.status===401){
 if(!response.ok){
   throw json({message:'Could not authenticate user.'},{status:500})
 }
+const resData= await response.json();
+const token =resData.token;
+localStorage.setItem('token',token);
 return redirect('/');
 }
